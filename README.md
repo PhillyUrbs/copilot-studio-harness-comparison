@@ -13,9 +13,17 @@ A single-page interactive calculator that helps organizations estimate:
 ## How to Use
 
 1. Open the live tool: **[→ Launch Comparison Tool](https://sunelt13.github.io/copilot-studio-harness-comparison/)**
-2. Select a preset (**Simple**, **Complex**, or **Frontier**) or configure variables manually
-3. Adjust sliders for adoption rate, complexity mix (Light/Medium/Heavy), and interactions per week
-4. All numbers recalculate in real-time
+2. Select the customer segment (**Payer**, **Provider**, or **MedTech / Pharma**) in the upper right to load representative workflows and modeling defaults
+3. Select a preset (**Simple**, **Complex**, or **Frontier**) or configure variables manually
+4. Adjust sliders for adoption rate, complexity mix (Light/Medium/Heavy), and interactions per week
+5. Use the mouse wheel outside interactive controls to move between major sections; keyboard and touch scrolling work normally
+6. All numbers recalculate in real-time
+
+## Included Customer Scenarios
+
+- **Payer:** prior authorization, claims exceptions, and care-gap outreach
+- **Provider:** referral coordination, clinical inbox/chart preparation, and denial follow-up
+- **MedTech / Pharma:** regulatory submissions, pharmacovigilance signal triage, clinical-trial operations, and quality/compliance documentation
 
 ## Variables You Can Configure
 

@@ -63,6 +63,19 @@ header {
 }
 header h1 { font-size: 1.6rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
 header .subtitle { color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.3rem; }
+.header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; }
+.segment-selector { flex-shrink: 0; }
+.segment-selector label { display: block; margin-bottom: 0.35rem; color: var(--text-muted); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.segment-options { display: inline-flex; border: 1px solid var(--border-strong); border-radius: 7px; overflow: hidden; }
+.segment-btn { border: 0; border-right: 1px solid var(--border-strong); padding: 0.45rem 0.7rem; background: var(--bg); color: var(--text-secondary); cursor: pointer; font: inherit; font-size: 0.75rem; font-weight: 700; }
+.segment-btn:last-child { border-right: 0; }
+.segment-btn:hover, .segment-btn:focus-visible { background: var(--ms-blue-light); color: var(--ms-blue); outline: none; }
+.segment-btn.active { background: var(--ms-blue); color: #fff; }
+.navigation-hint { margin-top: 0.8rem; color: var(--text-muted); font-size: 0.75rem; }
+.scenario-context { margin-top: 1rem; padding: 0.9rem 1rem; background: var(--purple-light); border: 1px solid #ddd6fe; border-radius: 8px; }
+.scenario-context h2 { color: var(--purple); font-size: 0.85rem; margin-bottom: 0.25rem; }
+.scenario-context p { color: var(--text-secondary); font-size: 0.8rem; }
+.scenario-context ul { margin: 0.5rem 0 0 1.1rem; color: var(--text-secondary); font-size: 0.78rem; }
 
 /* Section */
 .section {
@@ -312,6 +325,10 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
   .cap-grid { grid-template-columns: 1fr; }
   .sources-list { columns: 1; }
   body { padding: 1rem; }
+  .header-row { flex-direction: column; gap: 1rem; }
+  .segment-options { width: 100%; }
+  .segment-btn { flex: 1; padding: 0.55rem 0.35rem; }
+  .float-btn { right: 1rem; bottom: 1rem; }
 }
 </style>
 </head>
@@ -324,12 +341,34 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 </div>
 
 <header>
-  <h1>Copilot Studio: Harness Comparison</h1>
-  <p class="subtitle">Standard Harness vs GitHub Copilot Harness — Value Realization, Cost & Capability Analysis</p>
+  <div class="header-row">
+    <div>
+      <h1>Copilot Studio: Harness Comparison</h1>
+      <p class="subtitle">Standard Harness vs GitHub Copilot Harness — Value Realization, Cost & Capability Analysis</p>
+    </div>
+    <div class="segment-selector">
+      <label id="segmentLabel">Customer segment</label>
+      <div class="segment-options" role="group" aria-labelledby="segmentLabel">
+        <button class="segment-btn active" type="button" data-segment="payer" aria-pressed="true">Payer</button>
+        <button class="segment-btn" type="button" data-segment="provider" aria-pressed="false">Provider</button>
+        <button class="segment-btn" type="button" data-segment="medtech" aria-pressed="false">MedTech / Pharma</button>
+      </div>
+    </div>
+  </div>
+  <p class="navigation-hint">Use your mouse wheel outside controls to move between sections, or scroll normally with touch and keyboard.</p>
+  <div class="scenario-context" aria-live="polite">
+    <h2 id="segmentTitle">Payer scenarios</h2>
+    <p id="segmentSummary">Member service and operations workflows that balance predictable service paths with complex case resolution.</p>
+    <ul id="segmentExamples">
+      <li>Prior-authorization intake and status updates</li>
+      <li>Claims exception research and resolution</li>
+      <li>Care-gap outreach preparation</li>
+    </ul>
+  </div>
 </header>
 
 <!-- Value Realization -->
-<div class="section">
+<div class="section nav-section">
   <div class="section-header">
     <span class="section-title">Value Realization — Total Cost of Ownership</span>
   </div>
@@ -394,7 +433,7 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 </div>
 
 <!-- Three-Column Hero -->
-<div class="value-hero">
+<div class="value-hero nav-section">
   <div class="value-col manual">
     <div class="val-label">Manual (No AI)</div>
     <div class="val-big" id="manualTotalCost">$5.4M</div>
@@ -435,7 +474,7 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 </div>
 
 <!-- Bar Chart -->
-<div class="section">
+<div class="section nav-section">
   <div class="section-header"><span class="section-title">Total Monthly Cost Comparison</span></div>
   <div class="value-bars">
     <div class="vbar-row"><span class="vbar-label">Manual</span><div class="vbar-track"><div class="vbar-fill manual-bar" id="manualBar" style="width:100%;">$5.4M</div></div></div>
@@ -450,7 +489,7 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 </div>
 
 <!-- Scenario Configuration -->
-<div class="section">
+<div class="section nav-section">
   <div class="section-header">
     <span class="section-title">Scenario Configuration</span>
     <div class="presets">
@@ -477,15 +516,15 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
     <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 1rem;">GHCP Task Complexity Distribution</div>
     <div class="mix-grid">
       <div class="mix-item light">
-        <div class="mix-header"><span class="mix-label">Light</span><span class="tip"><span class="tip-icon">?</span><span class="tip-box"><strong>Light Scenarios (100–300 credits)</strong> Few knowledge sources, light reasoning, one short deliverable.<br><br><em>Example: "Check the daily-ops email, verify the workbook, and post a status summary."</em></span></span></div>
+        <div class="mix-header"><span class="mix-label">Light</span><span class="tip"><span class="tip-icon">?</span><span class="tip-box"><strong>Light Scenarios (100–300 credits)</strong> Few knowledge sources, light reasoning, one short deliverable.<br><br><em id="lightExample">Example: "Check the daily-ops email, verify the workbook, and post a status summary."</em></span></span></div>
         <div class="slider-group"><div class="slider-header"><span class="slider-value" id="lightVal">75%</span></div><input type="range" id="lightSlider" min="0" max="100" value="75" step="5" oninput="calc()"></div>
       </div>
       <div class="mix-item medium">
-        <div class="mix-header"><span class="mix-label">Medium</span><span class="tip"><span class="tip-icon">?</span><span class="tip-box"><strong>Medium Scenarios (300–500 credits)</strong> Many sources, structured reasoning, 2+ deliverables.<br><br><em>Example: "Compile an end-of-day operations summary with flagged items and post to the channel."</em></span></span></div>
+        <div class="mix-header"><span class="mix-label">Medium</span><span class="tip"><span class="tip-icon">?</span><span class="tip-box"><strong>Medium Scenarios (300–500 credits)</strong> Many sources, structured reasoning, 2+ deliverables.<br><br><em id="mediumExample">Example: "Compile an end-of-day operations summary with flagged items and post to the channel."</em></span></span></div>
         <div class="slider-group"><div class="slider-header"><span class="slider-value" id="mediumVal">25%</span></div><input type="range" id="mediumSlider" min="0" max="100" value="25" step="5" oninput="calc()"></div>
       </div>
       <div class="mix-item heavy">
-        <div class="mix-header"><span class="mix-label">Heavy</span><span class="tip"><span class="tip-icon">?</span><span class="tip-box"><strong>Heavy Scenarios (>500 credits)</strong> Deep analysis, broad source aggregation, many outputs. The most complex work tasks.<br><br><em>Example: "Run a multi-year compliance audit, flag exceedances, write a full report, distribute via SharePoint and email."</em></span></span></div>
+        <div class="mix-header"><span class="mix-label">Heavy</span><span class="tip"><span class="tip-icon">?</span><span class="tip-box"><strong>Heavy Scenarios (>500 credits)</strong> Deep analysis, broad source aggregation, many outputs. The most complex work tasks.<br><br><em id="heavyExample">Example: "Run a multi-year compliance audit, flag exceedances, write a full report, distribute via SharePoint and email."</em></span></span></div>
         <div class="slider-group"><div class="slider-header"><span class="slider-value" id="heavySliderVal">0%</span></div><input type="range" id="heavySlider" min="0" max="100" value="0" step="5" disabled style="opacity: 0.5;"></div>
       </div>
     </div>
@@ -515,7 +554,7 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 </div>
 
 <!-- Cost Comparison -->
-<div class="comparison-row">
+<div class="comparison-row nav-section">
   <div class="cost-card standard" id="stdCard">
     <div class="not-feasible-overlay">Not Feasible</div>
     <span class="card-label">Standard Harness</span>
@@ -552,10 +591,10 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 </div>
 
 <!-- Capability Gap -->
-<div class="capability-gap" id="capGap">
+<div class="capability-gap nav-section" id="capGap">
   <h3 id="capTitle">⚠ The Real Cost of "Cheap" — Capability Gap</h3>
-  <p>The Standard harness excels at <strong>deterministic, rule-based agents</strong> — FAQ bots, form fills, routing, structured conversations. That's genuinely its strength and best use case.</p>
-  <p>For complex scenarios, the "true cost" includes <strong>the manual labor that remains</strong> because Standard can only automate a fraction of the workload.</p>
+  <p id="capabilityStrength">The Standard harness excels at <strong>deterministic, rule-based agents</strong> — FAQ bots, form fills, routing, structured conversations. That's genuinely its strength and best use case.</p>
+  <p id="capabilityContext">For complex scenarios, the "true cost" includes <strong>the manual labor that remains</strong> because Standard can only automate a fraction of the workload.</p>
   <div class="heavy-warning" id="heavyWarning">🚨 <strong>Heavy scenarios are in the mix.</strong> This class of work is <em>architecturally not feasible</em> on the Standard harness regardless of budget or development time.</div>
   <div class="cap-grid">
     <div class="cap-item"><span class="icon no">✗</span><span>Multi-step reasoning with self-correction</span></div>
@@ -574,7 +613,7 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 </div>
 
 <!-- Dev Time -->
-<div class="section">
+<div class="section nav-section">
   <div class="section-header"><span class="section-title">Development Time & Cost Savings</span><span style="font-size: 0.8rem; color: var(--text-muted);" id="devTeamLabel">3 developers × $150/hr</span></div>
   <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1.25rem;">Build time scales with complexity. Standard grows disproportionately because every path must be manually encoded.</p>
   <div class="dev-grid">
@@ -599,7 +638,7 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 </div>
 
 <!-- Efficiency -->
-<div class="section">
+<div class="section nav-section">
   <div class="section-header"><span class="section-title">GitHub Copilot Harness — Efficiency Benchmarks</span></div>
   <div class="eff-row">
     <div class="eff-stat"><div class="stat-num">−45%</div><div class="stat-label">Input Tokens<br>(26.5K vs 47.8K)</div></div>
@@ -610,7 +649,7 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 </div>
 
 <!-- Assumptions & Caveats -->
-<div class="section">
+<div class="section nav-section">
   <div class="section-header"><span class="section-title">Assumptions & Caveats</span></div>
   <ul class="footnotes-list">
     <li><span class="fn-marker">A</span><span><strong>Standard harness credits include premium reasoning model costs</strong> (10 credits/1K tokens) on top of base feature rates. This reflects the requirement for reasoning to attempt complex scenarios. Without reasoning, Standard credit costs would be lower — but the agent would also be significantly less capable.</span></li>
@@ -627,7 +666,7 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 </div>
 
 <!-- Considerations -->
-<div class="section">
+<div class="section nav-section">
   <div class="section-header"><span class="section-title">Methodology Considerations</span></div>
   <ul class="footnotes-list">
     <li><span class="fn-marker">1</span><span>Standard harness credits include premium reasoning model costs (10 credits/1K tokens) on top of base feature rates. Without reasoning, Standard costs would be lower — but the agent would also be significantly less capable, widening the capability gap.</span></li>
@@ -639,7 +678,7 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 </div>
 
 <!-- Sources -->
-<div class="section">
+<div class="section nav-section">
   <div class="section-header"><span class="section-title">Sources & References</span></div>
   <ul class="sources-list">
     <li>Standard billing — <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/requirements-messages-management" target="_blank">Billing rates (Aug 2026)</a></li>
@@ -665,14 +704,51 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
 <script>
 const WEEKS_PER_MONTH = 4.33;
 
-const PRESETS = {
-  simple: { totalUsers: 50000, m365Users: 8000, discount: 20, interactionsWeek: 2, adoption: 50, light: 100, medium: 0, stdCreditsPerInt: 12, ghcpLightMid: 150, ghcpMedMid: 350, ghcpHeavyMid: 600, stdCoverage: 80 },
-  complex: { totalUsers: 50000, m365Users: 8000, discount: 20, interactionsWeek: 4, adoption: 30, light: 75, medium: 25, stdCreditsPerInt: 50, ghcpLightMid: 200, ghcpMedMid: 400, ghcpHeavyMid: 600, stdCoverage: 40 },
-  frontier: { totalUsers: 50000, m365Users: 8000, discount: 20, interactionsWeek: 6, adoption: 30, light: 30, medium: 40, stdCreditsPerInt: 80, ghcpLightMid: 200, ghcpMedMid: 400, ghcpHeavyMid: 750, stdCoverage: 10 }
+const SEGMENTS = {
+  payer: {
+    title: 'Payer scenarios',
+    summary: 'Member service and operations workflows that balance predictable service paths with complex case resolution.',
+    examples: ['Prior-authorization intake and status updates', 'Claims exception research and resolution', 'Care-gap outreach preparation'],
+    taskExamples: ['Example: "Summarize a member’s prior-authorization status and draft the next-step message."', 'Example: "Research a claims exception across policy, benefit, and case notes, then prepare a resolution brief."', 'Example: "Analyze a population for care gaps, create outreach lists, document rationale, and route exceptions."'],
+    strength: 'The Standard harness excels at <strong>deterministic payer workflows</strong> — member FAQs, eligibility lookups, routing, and structured intake.',
+    context: 'For complex payer cases, the true cost includes <strong>the manual work that remains</strong> when research, policy interpretation, and exception handling cannot be fully automated.',
+    presets: {
+      simple: { totalUsers: 50000, m365Users: 8000, discount: 20, interactionsWeek: 2, adoption: 50, light: 100, medium: 0, stdCreditsPerInt: 12, ghcpLightMid: 150, ghcpMedMid: 350, ghcpHeavyMid: 600, stdCoverage: 80, loadedCost: 50, manualLight: 15, manualMedium: 30, manualHeavy: 60, reworkRate: 15 },
+      complex: { totalUsers: 50000, m365Users: 8000, discount: 20, interactionsWeek: 4, adoption: 30, light: 75, medium: 25, stdCreditsPerInt: 50, ghcpLightMid: 200, ghcpMedMid: 400, ghcpHeavyMid: 600, stdCoverage: 40, loadedCost: 50, manualLight: 15, manualMedium: 30, manualHeavy: 60, reworkRate: 15 },
+      frontier: { totalUsers: 50000, m365Users: 8000, discount: 20, interactionsWeek: 6, adoption: 30, light: 30, medium: 40, stdCreditsPerInt: 80, ghcpLightMid: 200, ghcpMedMid: 400, ghcpHeavyMid: 750, stdCoverage: 10, loadedCost: 50, manualLight: 15, manualMedium: 30, manualHeavy: 60, reworkRate: 15 }
+    }
+  },
+  provider: {
+    title: 'Provider scenarios',
+    summary: 'Clinical and operational workflows that support care teams while preserving appropriate human review.',
+    examples: ['Referral and appointment coordination', 'Clinical inbox and chart-prep summaries', 'Revenue-cycle denial follow-up'],
+    taskExamples: ['Example: "Compile referral requirements and draft a patient scheduling update."', 'Example: "Summarize chart history, recent results, and open tasks for clinical inbox review."', 'Example: "Research a denial across documentation and payer rules, then prepare a follow-up packet."'],
+    strength: 'The Standard harness excels at <strong>predictable provider workflows</strong> — scheduling FAQs, routing, and structured patient-service tasks.',
+    context: 'For multi-source clinical and revenue-cycle work, the true cost includes <strong>human review and exception handling</strong> that deterministic paths leave behind.',
+    presets: {
+      simple: { totalUsers: 15000, m365Users: 5000, discount: 20, interactionsWeek: 3, adoption: 55, light: 100, medium: 0, stdCreditsPerInt: 15, ghcpLightMid: 175, ghcpMedMid: 375, ghcpHeavyMid: 650, stdCoverage: 80, loadedCost: 55, manualLight: 15, manualMedium: 35, manualHeavy: 75, reworkRate: 10 },
+      complex: { totalUsers: 15000, m365Users: 5000, discount: 20, interactionsWeek: 5, adoption: 35, light: 65, medium: 35, stdCreditsPerInt: 55, ghcpLightMid: 225, ghcpMedMid: 425, ghcpHeavyMid: 675, stdCoverage: 35, loadedCost: 55, manualLight: 15, manualMedium: 35, manualHeavy: 75, reworkRate: 10 },
+      frontier: { totalUsers: 15000, m365Users: 5000, discount: 20, interactionsWeek: 6, adoption: 30, light: 25, medium: 40, stdCreditsPerInt: 85, ghcpLightMid: 225, ghcpMedMid: 425, ghcpHeavyMid: 775, stdCoverage: 10, loadedCost: 55, manualLight: 15, manualMedium: 35, manualHeavy: 75, reworkRate: 10 }
+    }
+  },
+  medtech: {
+    title: 'MedTech / Pharma scenarios',
+    summary: 'Regulated product, clinical, and quality workflows that require traceable, multi-step evidence gathering and review.',
+    examples: ['Regulatory submission support and evidence packaging', 'Pharmacovigilance signal triage', 'Clinical-trial operations and site coordination', 'Quality and compliance documentation'],
+    taskExamples: ['Example: "Locate approved evidence, validate required fields, and draft a regulatory submission package."', 'Example: "Triage a potential safety signal across case data, literature, and SOPs, then prepare a review brief."', 'Example: "Reconcile clinical-trial site documents, flag deviations, update trackers, and draft quality documentation."'],
+    strength: 'The Standard harness excels at <strong>structured MedTech and Pharma workflows</strong> — SOP Q&A, approved-content lookup, and deterministic intake.',
+    context: 'For regulated evidence gathering, safety-signal triage, trial operations, and quality documentation, the true cost includes <strong>manual traceability, review, and exception recovery</strong> when an agent cannot complete the workflow.',
+    presets: {
+      simple: { totalUsers: 10000, m365Users: 6000, discount: 20, interactionsWeek: 3, adoption: 45, light: 100, medium: 0, stdCreditsPerInt: 20, ghcpLightMid: 200, ghcpMedMid: 400, ghcpHeavyMid: 700, stdCoverage: 75, loadedCost: 65, manualLight: 20, manualMedium: 45, manualHeavy: 90, reworkRate: 15 },
+      complex: { totalUsers: 10000, m365Users: 6000, discount: 20, interactionsWeek: 5, adoption: 35, light: 50, medium: 35, stdCreditsPerInt: 65, ghcpLightMid: 225, ghcpMedMid: 450, ghcpHeavyMid: 750, stdCoverage: 30, loadedCost: 65, manualLight: 20, manualMedium: 45, manualHeavy: 90, reworkRate: 15 },
+      frontier: { totalUsers: 10000, m365Users: 6000, discount: 20, interactionsWeek: 6, adoption: 30, light: 20, medium: 35, stdCreditsPerInt: 90, ghcpLightMid: 250, ghcpMedMid: 475, ghcpHeavyMid: 850, stdCoverage: 5, loadedCost: 65, manualLight: 20, manualMedium: 45, manualHeavy: 90, reworkRate: 15 }
+    }
+  }
 };
+let currentSegment = 'payer';
 
 function applyPreset(name, btn) {
-  const p = PRESETS[name];
+  const p = SEGMENTS[currentSegment].presets[name];
   document.getElementById('totalUsers').value = p.totalUsers;
   document.getElementById('m365Users').value = p.m365Users;
   document.getElementById('discount').value = p.discount;
@@ -685,6 +761,11 @@ function applyPreset(name, btn) {
   document.getElementById('ghcpMedMid').value = p.ghcpMedMid;
   document.getElementById('ghcpHeavyMid').value = p.ghcpHeavyMid;
   document.getElementById('stdCoverage').value = p.stdCoverage;
+  document.getElementById('loadedCost').value = p.loadedCost;
+  document.getElementById('manualLight').value = p.manualLight;
+  document.getElementById('manualMedium').value = p.manualMedium;
+  document.getElementById('manualHeavy').value = p.manualHeavy;
+  document.getElementById('reworkRate').value = p.reworkRate;
   document.getElementById('stdWeeksOverride').value = 0;
   document.getElementById('ghcpWeeksOverride').value = 0;
   document.getElementById('devTeam').value = 3;
@@ -692,6 +773,30 @@ function applyPreset(name, btn) {
   document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
   calc();
+}
+
+function selectSegment(name) {
+  currentSegment = name;
+  const segment = SEGMENTS[name];
+  document.getElementById('segmentTitle').textContent = segment.title;
+  document.getElementById('segmentSummary').textContent = segment.summary;
+  document.getElementById('segmentExamples').replaceChildren(...segment.examples.map(example => {
+    const item = document.createElement('li');
+    item.textContent = example;
+    return item;
+  }));
+  document.getElementById('lightExample').textContent = segment.taskExamples[0];
+  document.getElementById('mediumExample').textContent = segment.taskExamples[1];
+  document.getElementById('heavyExample').textContent = segment.taskExamples[2];
+  document.getElementById('capabilityStrength').innerHTML = segment.strength;
+  document.getElementById('capabilityContext').innerHTML = segment.context;
+  document.querySelectorAll('.segment-btn').forEach(button => {
+    const active = button.dataset.segment === name;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', active);
+  });
+  const activePreset = document.querySelector('.preset-btn.active');
+  applyPreset(activePreset ? activePreset.textContent.startsWith('Simple') ? 'simple' : activePreset.textContent.startsWith('Frontier') ? 'frontier' : 'complex' : 'complex', activePreset);
 }
 
 function toggleAdv(id) {
@@ -893,6 +998,29 @@ function calc() {
   document.getElementById('savedWeeks').textContent = '−' + (stdWks - ghcpWks) + ' wks';
   document.getElementById('savedPct').textContent = (stdWks > 0 ? Math.round(((stdWks - ghcpWks) / stdWks) * 100) : 0) + '%';
 }
+
+document.querySelectorAll('.segment-btn').forEach(button => {
+  button.addEventListener('click', () => selectSegment(button.dataset.segment));
+});
+
+let wheelNavigationLocked = false;
+document.addEventListener('wheel', event => {
+  if (event.ctrlKey || event.deltaY === 0 || event.target.closest('input, button, select, textarea, a, .tip, .advanced-panel')) return;
+
+  const sections = [...document.querySelectorAll('.nav-section')];
+  const currentIndex = sections.reduce((nearestIndex, section, index) => {
+    const nearest = sections[nearestIndex];
+    return Math.abs(section.getBoundingClientRect().top) < Math.abs(nearest.getBoundingClientRect().top) ? index : nearestIndex;
+  }, 0);
+  const nextIndex = Math.max(0, Math.min(sections.length - 1, currentIndex + (event.deltaY > 0 ? 1 : -1)));
+
+  if (nextIndex !== currentIndex && !wheelNavigationLocked) {
+    event.preventDefault();
+    wheelNavigationLocked = true;
+    sections[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.setTimeout(() => { wheelNavigationLocked = false; }, 650);
+  }
+}, { passive: false });
 
 calc();
 </script>
