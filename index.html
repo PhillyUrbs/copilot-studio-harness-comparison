@@ -1011,7 +1011,8 @@ applyIndustry(document.getElementById('industrySelect').value);
   function isDesktop() { return window.innerWidth >= DESKTOP_MIN; }
 
   function isExempt(target) {
-    if (!target || !target.closest) return false;
+    if (!target) return true;
+    if (!target.closest) return true;
     return !!target.closest('input[type="range"], input[type="number"], .advanced-panel, .tip-box, .tip, select');
   }
 
@@ -1020,6 +1021,8 @@ applyIndustry(document.getElementById('industrySelect').value);
 
   window.addEventListener('wheel', function (e) {
     if (!isDesktop() || e.ctrlKey || isExempt(e.target)) return;
+    // Suppress native scrolling for the whole gesture, including trailing
+    // trackpad momentum, so one gesture results in exactly one section jump.
     e.preventDefault();
 
     if (locked) {
