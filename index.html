@@ -493,9 +493,9 @@ footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--tex
   <div class="section-header">
     <span class="section-title">Scenario Configuration</span>
     <div class="presets">
-      <button class="preset-btn" onclick="applyPreset('simple', this)">Simple Agent</button>
-      <button class="preset-btn active" onclick="applyPreset('complex', this)">Complex Agent</button>
-      <button class="preset-btn" onclick="applyPreset('frontier', this)">Frontier Agent</button>
+      <button class="preset-btn" type="button" data-preset="simple" onclick="applyPreset('simple', this)">Simple Agent</button>
+      <button class="preset-btn active" type="button" data-preset="complex" onclick="applyPreset('complex', this)">Complex Agent</button>
+      <button class="preset-btn" type="button" data-preset="frontier" onclick="applyPreset('frontier', this)">Frontier Agent</button>
     </div>
   </div>
   <div class="inputs-grid">
@@ -710,8 +710,8 @@ const SEGMENTS = {
     summary: 'Member service and operations workflows that balance predictable service paths with complex case resolution.',
     examples: ['Prior-authorization intake and status updates', 'Claims exception research and resolution', 'Care-gap outreach preparation'],
     taskExamples: ['Example: "Summarize a member’s prior-authorization status and draft the next-step message."', 'Example: "Research a claims exception across policy, benefit, and case notes, then prepare a resolution brief."', 'Example: "Analyze a population for care gaps, create outreach lists, document rationale, and route exceptions."'],
-    strength: 'The Standard harness excels at <strong>deterministic payer workflows</strong> — member FAQs, eligibility lookups, routing, and structured intake.',
-    context: 'For complex payer cases, the true cost includes <strong>the manual work that remains</strong> when research, policy interpretation, and exception handling cannot be fully automated.',
+    strength: 'The Standard harness excels at deterministic payer workflows — member FAQs, eligibility lookups, routing, and structured intake.',
+    context: 'For complex payer cases, the true cost includes the manual work that remains when research, policy interpretation, and exception handling cannot be fully automated.',
     presets: {
       simple: { totalUsers: 50000, m365Users: 8000, discount: 20, interactionsWeek: 2, adoption: 50, light: 100, medium: 0, stdCreditsPerInt: 12, ghcpLightMid: 150, ghcpMedMid: 350, ghcpHeavyMid: 600, stdCoverage: 80, loadedCost: 50, manualLight: 15, manualMedium: 30, manualHeavy: 60, reworkRate: 15 },
       complex: { totalUsers: 50000, m365Users: 8000, discount: 20, interactionsWeek: 4, adoption: 30, light: 75, medium: 25, stdCreditsPerInt: 50, ghcpLightMid: 200, ghcpMedMid: 400, ghcpHeavyMid: 600, stdCoverage: 40, loadedCost: 50, manualLight: 15, manualMedium: 30, manualHeavy: 60, reworkRate: 15 },
@@ -723,8 +723,8 @@ const SEGMENTS = {
     summary: 'Clinical and operational workflows that support care teams while preserving appropriate human review.',
     examples: ['Referral and appointment coordination', 'Clinical inbox and chart-prep summaries', 'Revenue-cycle denial follow-up'],
     taskExamples: ['Example: "Compile referral requirements and draft a patient scheduling update."', 'Example: "Summarize chart history, recent results, and open tasks for clinical inbox review."', 'Example: "Research a denial across documentation and payer rules, then prepare a follow-up packet."'],
-    strength: 'The Standard harness excels at <strong>predictable provider workflows</strong> — scheduling FAQs, routing, and structured patient-service tasks.',
-    context: 'For multi-source clinical and revenue-cycle work, the true cost includes <strong>human review and exception handling</strong> that deterministic paths leave behind.',
+    strength: 'The Standard harness excels at predictable provider workflows — scheduling FAQs, routing, and structured patient-service tasks.',
+    context: 'For multi-source clinical and revenue-cycle work, the true cost includes human review and exception handling that deterministic paths leave behind.',
     presets: {
       simple: { totalUsers: 15000, m365Users: 5000, discount: 20, interactionsWeek: 3, adoption: 55, light: 100, medium: 0, stdCreditsPerInt: 15, ghcpLightMid: 175, ghcpMedMid: 375, ghcpHeavyMid: 650, stdCoverage: 80, loadedCost: 55, manualLight: 15, manualMedium: 35, manualHeavy: 75, reworkRate: 10 },
       complex: { totalUsers: 15000, m365Users: 5000, discount: 20, interactionsWeek: 5, adoption: 35, light: 65, medium: 35, stdCreditsPerInt: 55, ghcpLightMid: 225, ghcpMedMid: 425, ghcpHeavyMid: 675, stdCoverage: 35, loadedCost: 55, manualLight: 15, manualMedium: 35, manualHeavy: 75, reworkRate: 10 },
@@ -736,8 +736,8 @@ const SEGMENTS = {
     summary: 'Regulated product, clinical, and quality workflows that require traceable, multi-step evidence gathering and review.',
     examples: ['Regulatory submission support and evidence packaging', 'Pharmacovigilance signal triage', 'Clinical-trial operations and site coordination', 'Quality and compliance documentation'],
     taskExamples: ['Example: "Locate approved evidence, validate required fields, and draft a regulatory submission package."', 'Example: "Triage a potential safety signal across case data, literature, and SOPs, then prepare a review brief."', 'Example: "Reconcile clinical-trial site documents, flag deviations, update trackers, and draft quality documentation."'],
-    strength: 'The Standard harness excels at <strong>structured MedTech and Pharma workflows</strong> — SOP Q&A, approved-content lookup, and deterministic intake.',
-    context: 'For regulated evidence gathering, safety-signal triage, trial operations, and quality documentation, the true cost includes <strong>manual traceability, review, and exception recovery</strong> when an agent cannot complete the workflow.',
+    strength: 'The Standard harness excels at structured MedTech and Pharma workflows — SOP Q&A, approved-content lookup, and deterministic intake.',
+    context: 'For regulated evidence gathering, safety-signal triage, trial operations, and quality documentation, the true cost includes manual traceability, review, and exception recovery when an agent cannot complete the workflow.',
     presets: {
       simple: { totalUsers: 10000, m365Users: 6000, discount: 20, interactionsWeek: 3, adoption: 45, light: 100, medium: 0, stdCreditsPerInt: 20, ghcpLightMid: 200, ghcpMedMid: 400, ghcpHeavyMid: 700, stdCoverage: 75, loadedCost: 65, manualLight: 20, manualMedium: 45, manualHeavy: 90, reworkRate: 15 },
       complex: { totalUsers: 10000, m365Users: 6000, discount: 20, interactionsWeek: 5, adoption: 35, light: 50, medium: 35, stdCreditsPerInt: 65, ghcpLightMid: 225, ghcpMedMid: 450, ghcpHeavyMid: 750, stdCoverage: 30, loadedCost: 65, manualLight: 20, manualMedium: 45, manualHeavy: 90, reworkRate: 15 },
@@ -788,15 +788,15 @@ function selectSegment(name) {
   document.getElementById('lightExample').textContent = segment.taskExamples[0];
   document.getElementById('mediumExample').textContent = segment.taskExamples[1];
   document.getElementById('heavyExample').textContent = segment.taskExamples[2];
-  document.getElementById('capabilityStrength').innerHTML = segment.strength;
-  document.getElementById('capabilityContext').innerHTML = segment.context;
+  document.getElementById('capabilityStrength').textContent = segment.strength;
+  document.getElementById('capabilityContext').textContent = segment.context;
   document.querySelectorAll('.segment-btn').forEach(button => {
     const active = button.dataset.segment === name;
     button.classList.toggle('active', active);
     button.setAttribute('aria-pressed', active);
   });
   const activePreset = document.querySelector('.preset-btn.active');
-  applyPreset(activePreset ? activePreset.textContent.startsWith('Simple') ? 'simple' : activePreset.textContent.startsWith('Frontier') ? 'frontier' : 'complex' : 'complex', activePreset);
+  applyPreset(activePreset ? activePreset.dataset.preset : 'complex', activePreset);
 }
 
 function toggleAdv(id) {
